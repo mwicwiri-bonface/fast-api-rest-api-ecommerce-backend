@@ -1,7 +1,26 @@
 # Fast api project starter 
 
+project structure
 
-<p>Install all required packages</p>
+```tree
+├── app
+│   ├── __init__.py
+│   ├── helpers.py
+│   ├── models.py
+│   ├── schemas.py
+│   └── views.py
+├── core
+│   ├── __init__.py
+│   ├── emails.py
+│   ├── settings.py
+│   └── settings.ini
+├── main.py
+├── README.md
+├── requirements.txt
+
+```
+
+Install all required packages
 
 ```commandline
 pip install -r requirements.txt
