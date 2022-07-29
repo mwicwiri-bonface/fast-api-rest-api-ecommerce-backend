@@ -1,0 +1,6 @@
+/core/settings.ini
+/__pycache__/
+/store/__pycache__/
+/accounts/__pycache__/
+/order/__pycache__/
+/core/__pycache__/
