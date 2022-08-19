@@ -31,6 +31,7 @@ class UserCreate(BaseUser):
 
 class UserUpdate(BaseModel):
     full_name: Optional[StrictStr] = None
+    is_active: bool = True
 
     class Config:
         orm_mode = True

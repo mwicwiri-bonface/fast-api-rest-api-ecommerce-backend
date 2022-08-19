@@ -7,7 +7,7 @@ from starlette import status
 
 from accounts import schemas
 from accounts.auth import get_current_active_user, UserSchema, get_user_by_username_, oauth2_scheme
-from accounts.crud import get_user_by_email, create_user_, get_users_
+from accounts.crud import get_user_by_email, create_user_, get_users_, get_user
 from accounts.schemas import UserUpdate
 from core.email import sending_email_
 from core.settings import get_db
@@ -52,6 +52,7 @@ async def update_user(user: UserUpdate, db: Session = Depends(get_db),
     if not db_user:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="User not found")
     db_user.full_name = user.full_name
+    db_user.is_active = user.is_active
     db.commit()
     return current_user
 
@@ -59,3 +60,13 @@ async def update_user(user: UserUpdate, db: Session = Depends(get_db),
 @router.get('/')
 async def index(token: str = Depends(oauth2_scheme)):
     return {"token": token}
+
+
+@router.get('/verify-email/{pk}', status_code=status.HTTP_200_OK, response_model=schemas.User)
+async def verify_email(pk: int, db: Session = Depends(get_db)):
+    user = get_user(db, pk)
+    if not user:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="User not found")
+    user.is_active = True
+    db.commit()
+    return user

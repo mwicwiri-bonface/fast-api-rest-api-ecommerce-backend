@@ -40,5 +40,3 @@ async def create_product(product: schemas.ProductCreate, db: Session = Depends(g
 async def create_category(category: schemas.CategoryCreate, db: Session = Depends(get_db)):
     category = create_category_(db, category)
     return category
-
-
